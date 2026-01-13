@@ -339,13 +339,10 @@
 
         /* --- PARTNER SÁV (FULL WIDTH MOBILON IS) --- */
         .partner-strip-wrapper {
-            /* Ez a trükk teszi teljes szélességűvé a konténeren belül is */
+            /* Ez a beállítás biztosítja a teljes szélességet */
             width: 100vw;
-            position: relative;
-            left: 50%;
-            right: 50%;
-            margin-left: -50vw;
-            margin-right: -50vw;
+            margin-left: calc(50% - 50vw);
+            margin-right: calc(50% - 50vw);
             
             background: rgba(255, 255, 255, 0.15); 
             backdrop-filter: blur(10px);
@@ -673,8 +670,6 @@
 
             .cta-button { width: auto; }
             
-            /* A partner sáv desktopon is ugyanúgy működik a globális beállítás miatt */
-
             .services-grid { grid-template-columns: repeat(3, 1fr); }
 
             .portfolio-grid, .portfolio-hidden { grid-template-columns: repeat(3, 1fr); }

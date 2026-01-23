@@ -116,7 +116,7 @@
             transform: translateY(-5px);
         }
 
-        /* --- NAVIGÁCIÓ --- */
+        /* --- NAVIGÁCIÓ (Smart Show/Hide) --- */
         .top-nav {
             position: fixed;
             top: 0;
@@ -131,8 +131,14 @@
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            transition: transform 0.4s ease, background 0.3s ease; /* Transform az elrejtéshez */
         }
+
+        /* Ez az osztály rejti el a menüt */
+        .top-nav.nav-hidden {
+            transform: translateY(-100%);
+        }
+
         .nav-logo { height: 50px; display: flex; align-items: center; }
         .nav-logo img { height: 100%; width: auto; object-fit: contain; }
         .top-nav ul { display: none; gap: 30px; align-items: center; } 
@@ -217,7 +223,6 @@
         /* --- SZOLGÁLTATÁSOK (PRICING) --- */
         .pricing-section { margin-bottom: var(--section-spacing); }
         
-        /* EXTRA ANIMÁLT CÍMSOR JAVÍTVA */
         .hyper-title {
             text-align: center; 
             font-size: clamp(1.5rem, 2rem + 3vw, 4.5rem);
@@ -231,12 +236,10 @@
             overflow-wrap: break-word; 
         }
 
-        /* MOBIL NÉZET JAVÍTÁS (480px alatt) */
         @media (max-width: 480px) {
             .hyper-title {
-                /* JAVÍTÁS: Agresszív méretezés a hosszú szó miatt */
                 font-size: 7vw; 
-                letter-spacing: -1px; /* Betűk összébb húzása */
+                letter-spacing: -1px;
                 line-height: 1.2;
                 padding: 0 5px;
             }
@@ -313,6 +316,7 @@
             position: relative;
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.2);
+            cursor: pointer;
         }
 
         .marketing-cta:hover {
@@ -332,9 +336,7 @@
         .marketing-cta:hover::after { left: 100%; }
 
 
-        /* =========================================
-           MIÉRT VÁLASSZ MINKET (SPLIT LAYOUT + IPHONE)
-           ========================================= */
+        /* --- MIÉRT VÁLASSZ MINKET --- */
         .services { padding: 0 0 var(--section-spacing) 0; }
         
         .services h2 { 
@@ -348,7 +350,6 @@
             color: white;
         }
 
-        /* Container a bal szövegnek és jobb telefonnak */
         .why-us-container {
             display: grid;
             grid-template-columns: 1fr;
@@ -356,7 +357,6 @@
             align-items: center;
         }
 
-        /* Bal oldal: Szöveges blokkok */
         .why-us-text-col {
             display: flex;
             flex-direction: column;
@@ -396,7 +396,6 @@
             margin: 0;
         }
 
-        /* Jobb oldal: iPhone Mockup */
         .why-us-phone-col {
             display: flex;
             justify-content: center;
@@ -434,35 +433,16 @@
             z-index: 10;
         }
 
-        /* TikTok Interface Placeholder */
         .tiktok-ui {
             width: 100%;
             height: 100%;
             position: relative;
-            background: linear-gradient(to bottom, #111, #222); /* Placeholder háttér */
+            background: linear-gradient(to bottom, #111, #222);
             display: flex;
             justify-content: center;
             align-items: center;
         }
         
-        /* Itt lesz majd a videó */
-        .tiktok-ui video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0; left: 0;
-        }
-
-        .tiktok-overlay {
-            position: absolute;
-            bottom: 20px;
-            left: 15px;
-            right: 15px;
-            z-index: 5;
-            color: white;
-        }
-
         .tiktok-sidebar {
             position: absolute;
             right: 10px;
@@ -486,13 +466,17 @@
         
         .tiktok-icon span { font-size: 10px; font-weight: 600; }
 
-        .tiktok-desc {
-            font-size: 13px;
-            line-height: 1.4;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+        .tiktok-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 15px;
+            right: 15px;
+            z-index: 5;
+            color: white;
         }
-        
+
         .tiktok-user { font-weight: bold; margin-bottom: 5px; display: block; }
+        .tiktok-desc { font-size: 13px; line-height: 1.4; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
 
         /* --- PORTFÓLIÓ --- */
         .portfolio-section { margin-bottom: var(--section-spacing); text-align: center; }
@@ -519,6 +503,105 @@
         }
         .portfolio-btn:hover { background: var(--accent-purple); box-shadow: 0 0 20px rgba(91, 77, 255, 0.4); transform: translateY(-3px); }
 
+        /* --- KAPCSOLAT --- */
+        .offer-block { 
+            padding: var(--fluid-card-padding); 
+            border-radius: var(--border-radius); 
+            margin-bottom: var(--section-spacing);
+        }
+
+        .offer-block h3 {
+            font-size: clamp(2rem, 1.5rem + 2vw, 3rem);
+            margin-bottom: 40px;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: 900;
+            color: white;
+            letter-spacing: 1px;
+        }
+
+        .contact-form-grid { 
+            display: grid; 
+            grid-template-columns: 1fr; 
+            gap: 20px; 
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .form-field {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 18px 25px;
+            color: white;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .form-field:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(91, 77, 255, 0.2);
+        }
+
+        .form-field::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        textarea.form-field {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .checkbox-wrapper input {
+            margin-top: 4px;
+            accent-color: var(--accent-purple);
+            width: 18px;
+            height: 18px;
+        }
+
+        .checkbox-highlight {
+            color: var(--accent-purple);
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        .btn-submit {
+            background: linear-gradient(90deg, var(--accent-purple), #3a2db3);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-weight: 900;
+            text-transform: uppercase;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.4s ease;
+            letter-spacing: 1px;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 30px rgba(91, 77, 255, 0.3);
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(91, 77, 255, 0.5);
+            filter: brightness(1.1);
+        }
+
         /* --- FOOTER --- */
         footer { background: black; padding: 60px 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); }
         .footer-content { display: flex; flex-direction: column; align-items: center; gap: 30px; }
@@ -528,9 +611,7 @@
         .footer-socials a:hover { color: var(--accent-purple); transform: translateY(-5px); }
         .footer-text { color: #666; font-size: 0.9rem; letter-spacing: 0.5px; }
 
-        /* =========================================
-           DESKTOP / TABLET NÉZET (min-width: 1024px)
-           ========================================= */
+        /* --- DESKTOP NÉZET --- */
         @media (min-width: 1024px) {
             .top-nav { left: var(--fluid-page-margin); right: var(--fluid-page-margin); padding: 0 40px; border-radius: 0 0 30px 30px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); width: auto; }
             .top-nav ul { display: flex; }
@@ -538,32 +619,21 @@
             .about-section { min-height: 100vh; height: auto; }
             .about-card { flex-direction: row; min-height: 90vh; height: auto; max-height: none; gap: clamp(40px, 5vw, 80px); }
             .about-content { flex: 1.5; }
-            .about-content h2 { margin-bottom: 20px; }
             .about-video-wrapper { flex: 0 0 auto; max-height: 65vh; height: auto; width: auto; aspect-ratio: 9 / 16; align-self: center; }
             .cta-button { width: auto; }
-            
-            /* GRID BEÁLLÍTÁSOK */
             .pricing-grid { grid-template-columns: repeat(3, 1fr); }
-            
-            /* MIÉRT VÁLASSZ MINKET SPLIT DESKTOPON */
-            .why-us-container {
-                grid-template-columns: 1fr 1fr; /* Bal: Szöveg, Jobb: Telefon */
-            }
-            .why-us-text-col {
-                padding-right: 40px;
-            }
-
+            .why-us-container { grid-template-columns: 1fr 1fr; }
+            .why-us-text-col { padding-right: 40px; }
             .portfolio-grid, .portfolio-hidden { grid-template-columns: repeat(3, 1fr); }
             .contact-form-grid { grid-template-columns: 1fr 1fr; }
             .full-width { grid-column: span 2; }
-            .offer-block { width: 100%; }
         }
     </style>
 </head>
 <body id="hero">
 
     <!-- NAVIGÁCIÓ -->
-    <nav class="top-nav glass-style reveal">
+    <nav class="top-nav glass-style">
         <a href="#hero" class="nav-logo">
             <img src="input_file_1.png" alt="FRAMIX Logo">
         </a>
@@ -571,7 +641,7 @@
         <ul>
             <li><a href="#about">RÓLUNK</a></li>
             <li><a href="#pricing">SZOLGÁLTATÁSAINK</a></li>
-            <li><a href="#services">MIÉRT MI?</a></li> <!-- JAVÍTVA: KÉRDŐJEL HOZZÁADVA -->
+            <li><a href="#services">MIÉRT MI?</a></li>
             <li><a href="#portfolio">PORTFÓLIÓ</a></li>
             <li><a href="#contact">KAPCSOLAT</a></li>
         </ul>
@@ -594,7 +664,6 @@
                 <div class="about-video-wrapper">
                     <video controls autoplay muted loop playsinline>
                         <source src="input_video_1.mp4" type="video/mp4">
-                        A böngésződ nem támogatja a videó lejátszását.
                     </video>
                 </div>
             </div>
@@ -606,75 +675,58 @@
         <div class="container">
             <h2>Partnereink, akikre büszkék vagyunk</h2>
             <div class="partner-strip-wrapper">
-                <a href="https://kontaktbau.hu/?gad_source=1&gad_campaignid=17000393750&gbraid=0AAAAADoko8GvUyOOZ174NoulcJiFc2tYZ&gclid=Cj0KCQiA1JLLBhCDARIsAAVfy7jNk5ePL_RbHOseoKKl4mOsPoc6H4d2hJ7HsqTJWUv-RKYudffuGXgaApwzEALw_wcB" target="_blank" class="partner-logo-link">
+                <a href="https://kontaktbau.hu/" target="_blank" class="partner-logo-link">
                     <img src="input_file_2.png" class="partner-logo-img" alt="Kontakt Bau Logo">
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- SZOLGÁLTATÁSOK (PRICING) -->
+    <!-- SZOLGÁLTATÁSOK -->
     <section class="pricing-section" id="pricing">
         <div class="container">
-            <!-- EXTRA ANIMÁLT CÍMSOR -->
             <h2 class="hyper-title reveal" data-text="Szolgáltatásaink">
                 <span data-text="Szolgáltatásaink">Szolgáltatásaink</span>
             </h2>
             
             <div class="pricing-grid">
-                <!-- 1. Kártya -->
                 <div class="pricing-card glass-style reveal-left">
                     <h3>Short-Form Videók</h3>
                     <div class="price-tag">30–60 mp | 40 000 – 60 000 Ft / videó</div>
-                    
                     <ul class="pricing-features">
                         <li><i class="fas fa-check"></i> Profi, hook-alapú videóvágás</li>
                         <li><i class="fas fa-check"></i> Dinamikus animációk, feliratok</li>
                         <li><i class="fas fa-check"></i> Ritmusra vágás</li>
                         <li><i class="fas fa-exclamation-circle"></i> 5 videó alatt: extra költség</li>
                     </ul>
-
-                    <div class="pricing-goal">
-                        Cél: organikus növekedés & figyelem maximalizálás
-                    </div>
+                    <div class="pricing-goal">Cél: organikus növekedés & figyelem maximalizálás</div>
                 </div>
 
-                <!-- 2. Kártya -->
                 <div class="pricing-card glass-style reveal">
                     <h3>High-End Reklámfilm</h3>
                     <div class="price-tag">Ár: videótól és igényektől függ</div>
-                    
                     <ul class="pricing-features">
                         <li><i class="fas fa-check"></i> Prémium, filmes minőségű vágás</li>
                         <li><i class="fas fa-check"></i> VFX, animációk, feliratok</li>
                         <li><i class="fas fa-check"></i> Storyboard, narratíva, brand-fókusz</li>
                         <li><i class="fas fa-check"></i> Egyedi megoldások, szinte bármi megvalósítható</li>
                     </ul>
-
-                    <div class="pricing-goal">
-                        Cél: magasabb konverzió & brand presztízs
-                    </div>
+                    <div class="pricing-goal">Cél: magasabb konverzió & brand presztízs</div>
                 </div>
 
-                <!-- 3. Kártya -->
                 <div class="pricing-card glass-style reveal-right">
                     <h3>Egyéb Videós Tartalom</h3>
                     <div class="price-tag">Árazás: privát egyeztetés alapján</div>
-                    
                     <ul class="pricing-features">
                         <li><i class="fas fa-check"></i> Social, YouTube, event, brand, commercial</li>
                         <li><i class="fas fa-check"></i> Rugalmas formátum és kreatív irány</li>
                         <li><i class="fas fa-check"></i> Profi vágás, felirat, animáció</li>
                         <li><i class="fas fa-check"></i> VFX & SFX igény szerint</li>
                     </ul>
-
-                    <div class="pricing-goal">
-                        Egyedi célokra szabva
-                    </div>
+                    <div class="pricing-goal">Egyedi célokra szabva</div>
                 </div>
             </div>
 
-            <!-- PROFI MARKETING CTA -->
             <div class="marketing-cta-wrapper reveal">
                 <a href="#contact" class="marketing-cta">
                     Nem csak videót akarok, hanem EREDMÉNYT – Indítsuk el a közös munkát!
@@ -683,7 +735,7 @@
         </div>
     </section>
 
-    <!-- MIÉRT VÁLASSZ MINKET (SPLIT LAYOUT + IPHONE) -->
+    <!-- MIÉRT VÁLASSZ MINKET -->
     <section class="services" id="services">
         <div class="container">
             <div style="text-align: center;">
@@ -691,48 +743,34 @@
             </div>
             
             <div class="why-us-container">
-                <!-- BAL OLDAL: SZÖVEG -->
                 <div class="why-us-text-col reveal-left">
                     <div class="service-card glass-style">
-                        <h3>🎬 <span class="text-bold-italic">Prémium</span> Storytelling</h3>
-                        <p>Minden másodperc egy esély a konverzióra.</p>
-                        <p><span class="text-glow">Tudatosan felépített</span> narratíva, ami erősíti a márkád pozícióját és hitelességét.</p>
+                        <h3>🎬 Prémium Storytelling</h3>
+                        <p>Minden másodperc egy esély a konverzióra. Tudatosan felépített narratíva, ami erősíti a márkád pozícióját.</p>
                     </div>
-                    
                     <div class="service-card glass-style">
-                        <h3>📐 Vizuális <span class="text-bold-italic">Minőség</span></h3>
-                        <p>A minőség nem a véletlen műve.</p>
-                        <p>Minden vágás, minden effekt és minden képkocka <span class="text-glow">tudatos döntés</span> eredménye a konverzió érdekében.</p>
+                        <h3>📐 Vizuális Minőség</h3>
+                        <p>A minőség nem a véletlen műve. Minden vágás és effekt tudatos döntés eredménye.</p>
                     </div>
-                    
                     <div class="service-card glass-style">
-                        <h3>💡 <span class="text-bold-italic">Egyedi</span> Arculat</h3>
-                        <p>Mi új szintre emeljük fel a vizuális identitásodat.</p>
-                        <p>Így a márkád <span class="text-glow">összetéveszthetetlen</span> lesz a piacon.</p>
+                        <h3>💡 Egyedi Arculat</h3>
+                        <p>Új szintre emeljük a vizuális identitásodat, így a márkád összetéveszthetetlen lesz.</p>
                     </div>
                 </div>
 
-                <!-- JOBB OLDAL: IPHONE MOCKUP -->
                 <div class="why-us-phone-col reveal-right">
                     <div class="iphone-frame">
                         <div class="iphone-notch"></div>
-                        
-                        <!-- TikTok UI -->
                         <div class="tiktok-ui">
-                            <!-- IDE JÖHET MAJD A VIDEÓ -->
-                            <!-- <video src="video.mp4" autoplay muted loop></video> -->
-                            
                             <div class="tiktok-sidebar">
                                 <div class="tiktok-icon"><i class="fas fa-heart"></i> <span>85.4K</span></div>
                                 <div class="tiktok-icon"><i class="fas fa-comment-dots"></i> <span>1024</span></div>
                                 <div class="tiktok-icon"><i class="fas fa-bookmark"></i> <span>5032</span></div>
                                 <div class="tiktok-icon"><i class="fas fa-share"></i> <span>Share</span></div>
-                                <div class="tiktok-icon" style="animation: spin 4s linear infinite;"><i class="fas fa-compact-disc"></i></div>
                             </div>
-
                             <div class="tiktok-overlay">
                                 <span class="tiktok-user">@framix_agency</span>
-                                <p class="tiktok-desc">Amikor a marketinged végre működni kezd... 🚀🔥 #marketing #video #business</p>
+                                <p class="tiktok-desc">Amikor a marketinged végre működni kezd... 🚀🔥 #marketing #video</p>
                             </div>
                         </div>
                     </div>
@@ -746,7 +784,6 @@
         <div class="container">
             <h2>Portfóliónk</h2>
             <p class="portfolio-subtitle">Minőség, ami rangot ad a Márkádnak.</p>
-
             <div class="portfolio-grid">
                 <div class="portfolio-item glass-style reveal">
                     <video muted loop onmouseover="this.play()" onmouseout="this.pause()">
@@ -756,7 +793,6 @@
                 <div class="portfolio-placeholder">HAMAROSAN...</div>
                 <div class="portfolio-placeholder">HAMAROSAN...</div>
             </div>
-            
             <div class="portfolio-hidden" id="more-videos">
                 <div class="portfolio-placeholder">HAMAROSAN...</div>
                 <div class="portfolio-placeholder">HAMAROSAN...</div>
@@ -767,29 +803,31 @@
     </section>
 
     <!-- DOLGOZZUNK EGYÜTT -->
-    <section class="offer-block glass-style reveal" id="contact">
-        <div class="container">
+    <section class="container reveal" id="contact">
+        <div class="offer-block glass-style">
             <h3>Dolgozzunk együtt!</h3>
             <form class="contact-form-grid">
-                <input type="text" class="form-field" placeholder="Teljes név">
+                <input type="text" class="form-field" placeholder="Teljes név" required>
                 <input type="text" class="form-field" placeholder="Cégnév">
-                <input type="email" class="form-field full-width" placeholder="E-mail cím">
+                <input type="email" class="form-field full-width" placeholder="E-mail cím" required>
                 <input type="tel" class="form-field" placeholder="Telefonszám">
                 <input type="text" class="form-field" placeholder="Beosztás">
-                <textarea class="form-field full-width" placeholder="Üzenet"></textarea>
+                <textarea class="form-field full-width" placeholder="Miben segíthetünk? Írd le röviden a projektet!"></textarea>
+                
                 <div class="checkbox-wrapper full-width">
-                    <input type="checkbox" id="privacy">
+                    <input type="checkbox" id="privacy" required>
                     <label for="privacy">Elolvastam és elfogadom az <span class="checkbox-highlight">adatvédelmi nyilatkozatot.</span></label>
                 </div>
+                
                 <div class="full-width">
-                    <button type="submit" class="btn-submit">KÜLDÉS</button>
+                    <button type="submit" class="btn-submit">ÜZENET KÜLDÉSE</button>
                 </div>
             </form>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="reveal">
+    <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
@@ -797,7 +835,7 @@
                 </div>
                 <div class="footer-socials">
                     <a href="https://www.instagram.com/framix.hu/" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.tiktok.com/@framix_hu?lang=en" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.tiktok.com/@framix_hu" target="_blank"><i class="fab fa-tiktok"></i></a>
                     <a href="https://www.facebook.com/profile.php?id=61586161015139" target="_blank"><i class="fab fa-facebook-f"></i></a>
                     <a href="#"><i class="fab fa-youtube"></i></a>
                 </div>
@@ -806,8 +844,23 @@
         </div>
     </footer>
 
-    <!-- SCRIPTS -->
     <script>
+        /* --- SMART NAVIGATION LOGIC --- */
+        let lastScrollY = window.scrollY;
+        const nav = document.querySelector('.top-nav');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > lastScrollY && window.scrollY > 100) {
+                // Lefelé görgetünk - elrejtés
+                nav.classList.add('nav-hidden');
+            } else {
+                // Felfelé görgetünk - megjelenítés
+                nav.classList.remove('nav-hidden');
+            }
+            lastScrollY = window.scrollY;
+        });
+
+        /* --- EGYÉB FUNKCIÓK --- */
         function togglePortfolio() {
             var hiddenSection = document.getElementById("more-videos");
             var btn = document.getElementById("toggle-btn");
